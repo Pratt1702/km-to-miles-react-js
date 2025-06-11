@@ -1,0 +1,14 @@
+.km-to-miles-app,
+.km-to-miles-app * {
+  box-sizing: border-box;
+}
+.km-to-miles-app {
+  background: #1d3062;
+  min-height: 100vh;
+  width: 99vw;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
