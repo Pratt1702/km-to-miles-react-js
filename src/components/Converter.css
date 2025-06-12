@@ -4,7 +4,6 @@
   font-weight: 400;
   font-style: normal;
 }
-
 .earthimage {
   width: 342px;
   height: 321px;
@@ -14,6 +13,8 @@
   object-fit: cover;
   justify-self: center;
   user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
 }
 .rocket-holder {
   position: fixed;
@@ -29,6 +30,8 @@
   gap: 10px;
   align-items: center;
   justify-content: flex-start;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 .image-3 {
   flex-shrink: 0;

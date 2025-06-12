@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Converter.css"; 
 import Earth from "../assets/Earth.svg"
 import RocketStationary from "../assets/RocketStationary.svg";
@@ -44,8 +44,7 @@ const Converter = () => {
     setMiles(value ? value * 0.621371 : 0);
   };
 
-  // Calculate the rocket's position based on the slider value
-  const rocketPosition = (km / 10000) * 100; // Assuming the slider max is 10000
+  const rocketPosition = (km / 10000) * 100; 
 
   const getBackgroundColor = (inputValue) => {
     if (inputValue === 0) return colors[0]; 
@@ -75,6 +74,21 @@ const Converter = () => {
     if (km < 10000) return funFacts[4];
     return funFacts[5];
   };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "ArrowUp") {
+      setKm((prevKm) => Math.min(prevKm + 50, 15000)); 
+    } else if (event.key === "ArrowDown") {
+      setKm((prevKm) => Math.max(prevKm - 25, 0)); 
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <div
