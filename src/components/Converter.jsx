@@ -17,6 +17,15 @@ const Converter = () => {
     "#000032", // Space +10000 km
   ];
 
+  const funFacts = [
+    "At 0 km, you are on the surface of the Earth, where the atmosphere is thickest.",
+    "At 400 km, the International Space Station (ISS) orbits Earth.",
+    "At 1000 km, you are above most of the atmosphere, where satellites begin to orbit.",
+    "At 2000 km, geostationary satellites orbit, allowing them to stay fixed over one point on Earth.",
+    "At 4000 km, you are approaching the distance to the Moon, which is about 384,400 km away.",
+    "At 10000 km, you are well into the thermosphere, where temperatures can reach up to 2000°C (3632°F).",
+  ];
+
   const handleKmChange = (event) => {
     const value = event.target.value.replace(/^0+/, '');
     setKm(value ? parseFloat(value) : 0);
@@ -34,6 +43,9 @@ const Converter = () => {
     setKm(value);
     setMiles(value ? value * 0.621371 : 0);
   };
+
+  // Calculate the rocket's position based on the slider value
+  const rocketPosition = (km / 10000) * 100; // Assuming the slider max is 10000
 
   const getBackgroundColor = (inputValue) => {
     if (inputValue === 0) return colors[0]; 
@@ -54,26 +66,39 @@ const Converter = () => {
     return "Space";
   };
 
+  // Determine the fun fact based on km
+  const getFunFact = (km) => {
+    if (km < 400) return funFacts[0];
+    if (km < 1000) return funFacts[1];
+    if (km < 2000) return funFacts[2];
+    if (km < 4000) return funFacts[3];
+    if (km < 10000) return funFacts[4];
+    return funFacts[5];
+  };
+
   return (
     <div
       className="km-to-miles-app"
       style={{ backgroundColor: getBackgroundColor(km || miles || 0) }}
     >
-      <img className="earthimage" src={Earth}/>
-      <div className="rocket-holder">
-      <img className="rocket-stationary" src={RocketStationary}/>
+      <img 
+        className="earthimage" 
+        src={Earth} 
+        style={{ transform: `rotate(${km / 20}deg)`, scale: `${(km < 1000) ? 1 : 1000 / km}`, transition: '3s ease-in-out' }}
+      />
+      <div className="rocket-holder" style={{ position: 'fixed', top: `-${rocketPosition}%`,scale:'0.95', left: '100px', transform: 'translateY(300%)', transition: 'top 3s ease-in-out' }}>
+        <img className="rocket-stationary" src={RocketMoving}/>
       </div>
-        <input
-          type="range"
-          min="0"
-          max="10000"
-          value={km}
-          onChange={handleSliderChange}
-          className="slider"
-        />
+      <input
+        type="range"
+        min="0"
+        max="15000"
+        value={km}
+        onChange={handleSliderChange}
+        className="slider"
+      />
 
       <div className="mainframe">
-        
         <div className="km-frame">
           <div className="km-txt">Kilometer:</div>
           <input
@@ -97,8 +122,10 @@ const Converter = () => {
           />
         </div>
       </div>
-      <h2 className="layer-indicator">{getLayerName(km)}</h2>
-
+      <div className="layer-indicator">
+        <h2>{getLayerName(km)}</h2>
+        <p>{getFunFact(km)}</p>
+      </div>
     </div>
   );
 };

@@ -9,10 +9,10 @@
   width: 342px;
   height: 321px;
   position: fixed;
-  left: 50%;
   bottom: 64px;
   transform: translateX(-50%);
   object-fit: cover;
+  justify-self: center;
   user-select: none;
 }
 .rocket-holder {
@@ -66,11 +66,27 @@
   margin-bottom: 10px;
   align-items: center;
   display: flex;
+  flex-direction: column;
   text-align: center;
   width: auto;
-  margin-top: 128px;
+  margin-top: 64px;
+  gap: 0;
+  padding: none;
   user-select: none;
 }
+.layer-indicator h2 {
+  margin: 16px;
+  margin-top: 64px;
+}
+
+.layer-indicator p {
+  font-family: "Roboto";
+  font-size: 20px;
+  color: #fbfbfb;
+  margin-top: 0;
+  opacity: 80%;
+}
+
 .km-frame,
 .miles-frame {
   flex: 1;
